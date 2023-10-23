@@ -2,6 +2,7 @@
 // ex8_taco_switch.cpp
 //
 // Practice char input menu structure using switch statement
+// Uses ancillary source code files
 //------------------------------------------------------------------------------
 #include <iomanip>
 #include <iostream>
@@ -40,11 +41,11 @@ void display_error();
 void display_taco_price(int);
 
 // command handlers
-UserOptionStatus display_fish_filling();
-UserOptionStatus display_salsa_filling();
-UserOptionStatus display_pico_filling();
-UserOptionStatus display_lettuce_filling();
-UserOptionStatus display_avocado_filling();
+UserOptionStatus handle_fish_filling();
+UserOptionStatus handle_salsa_filling();
+UserOptionStatus handle_pico_filling();
+UserOptionStatus handle_lettuce_filling();
+UserOptionStatus handle_avocado_filling();
 
 //------------------------------------------------------------------------------
 // entry point
@@ -113,15 +114,15 @@ UserOptionStatus choose_fillings() {
 
     switch (option) {
     case 'F':
-        return display_fish_filling();
+        return handle_fish_filling();
     case 'S':
-        return display_salsa_filling();
+        return handle_salsa_filling();
     case 'P':
-        return display_pico_filling();
+        return handle_pico_filling();
     case 'L':
-        return display_lettuce_filling();
+        return handle_lettuce_filling();
     case 'A':
-        return display_avocado_filling();
+        return handle_avocado_filling();
     case 'Q':
         return OPTION_QUIT;
     default:
@@ -167,7 +168,7 @@ void display_error() {
 //------------------------------------------------------------------------------
 // add fish to taco order
 //------------------------------------------------------------------------------
-UserOptionStatus display_fish_filling() {
+UserOptionStatus handle_fish_filling() {
 
     cout << "Adding freshly caught mahi-mahi\n";
     return OPTION_VALID;
@@ -176,7 +177,7 @@ UserOptionStatus display_fish_filling() {
 //------------------------------------------------------------------------------
 // add salsa to taco order
 //------------------------------------------------------------------------------
-UserOptionStatus display_salsa_filling() {
+UserOptionStatus handle_salsa_filling() {
 
     cout << "Adding HOT homemade salsa\n";
     return OPTION_VALID;
@@ -185,7 +186,7 @@ UserOptionStatus display_salsa_filling() {
 //------------------------------------------------------------------------------
 // add pico de gallo to taco order
 //------------------------------------------------------------------------------
-UserOptionStatus display_pico_filling() {
+UserOptionStatus handle_pico_filling() {
 
     cout << "Adding diced tomato, onion, and chopped cilantro\n";
     return OPTION_VALID;
@@ -194,7 +195,7 @@ UserOptionStatus display_pico_filling() {
 //------------------------------------------------------------------------------
 // add shredded lettuce to taco order
 //------------------------------------------------------------------------------
-UserOptionStatus display_lettuce_filling() {
+UserOptionStatus handle_lettuce_filling() {
 
     cout << "Adding crisp, shredded iceberg lettuce\n";
     return OPTION_VALID;
@@ -203,7 +204,7 @@ UserOptionStatus display_lettuce_filling() {
 //------------------------------------------------------------------------------
 // add sliced avocado to taco order
 //------------------------------------------------------------------------------
-UserOptionStatus display_avocado_filling() {
+UserOptionStatus handle_avocado_filling() {
 
     cout << "Adding creamy avocado slices\n";
     return OPTION_VALID;
