@@ -39,23 +39,33 @@ int main() {
 
     startup();
 
-    while (true) {
+    bool quit = false;
+    while (!quit) {
+
         char option = get_menu_option();
 
-        if (option == 'F')
+        switch (option) {
+        case 'F':
             display_fish_filling();
-        else if (option == 'S')
-            display_salsa_filling();
-        else if (option == 'P')
-            display_pico_filling();
-        else if (option == 'L')
-            display_lettuce_filling();
-        else if (option == 'A')
-            display_avocado_filling();
-        else if (option == 'Q')
             break;
-        else
+        case 'S':
+            display_salsa_filling();
+            break;
+        case 'P':
+            display_pico_filling();
+            break;
+        case 'L':
+            display_lettuce_filling();
+            break;
+        case 'A':
+            display_avocado_filling();
+            break;
+        case 'Q':
+            quit = true;
+            break;
+        default:
             display_error();
+        }
     }
 
     display_taco_price(number_of_fillings);
