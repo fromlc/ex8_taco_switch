@@ -15,9 +15,19 @@ const string MENU_STR = "F)ish, S)alsa, P)ico de gallo, L)ettuce, A)vocado Q)uit
 const double PRICE_PER_FILLING = 0.75;
 
 //------------------------------------------------------------------------------
+// globals
+//------------------------------------------------------------------------------
+enum UserOptionStatus {
+    OPTION_VALID,
+    OPTION_INVALID,
+    OPTION_QUIT,
+};
+
+//------------------------------------------------------------------------------
 // local function prototypes
 //------------------------------------------------------------------------------
 void startup();
+UserOptionStatus choose_fillings();
 char get_menu_option();
 void display_fish_filling();
 void display_salsa_filling();
@@ -28,49 +38,21 @@ void display_error();
 void display_taco_price(int);
 
 //------------------------------------------------------------------------------
-// globals
-//------------------------------------------------------------------------------
-int number_of_fillings = 0;
-
-//------------------------------------------------------------------------------
 // entry point
 //------------------------------------------------------------------------------
 int main() {
 
     startup();
 
-    bool quit = false;
-    while (!quit) {
+    int num_fillings = 0;
 
-        char option = get_menu_option();
-
-        switch (option) {
-        case 'F':
-            display_fish_filling();
-            break;
-        case 'S':
-            display_salsa_filling();
-            break;
-        case 'P':
-            display_pico_filling();
-            break;
-        case 'L':
-            display_lettuce_filling();
-            break;
-        case 'A':
-            display_avocado_filling();
-            break;
-        case 'Q':
-            quit = true;
-            break;
-        default:
-            display_error();
-        }
+    UserOptionStatus response { };
+    while ((response = choose_fillings()) != OPTION_QUIT) {
+        
+        num_fillings = (response == OPTION_VALID) ? num_fillings + 1 : num_fillings;
     }
 
-    display_taco_price(number_of_fillings);
-
-    return 0;
+    display_taco_price(num_fillings);
 }
 
 
@@ -81,6 +63,40 @@ void startup() {
 
     cout << "\nProf. Linda C's Taco Shop";
     cout << "\n\nChoose your taco fillings!\n";
+}
+
+//------------------------------------------------------------------------------
+// - processes selected menu option
+// - returns type of user response as enum: valid, invalid, or quit
+//------------------------------------------------------------------------------
+UserOptionStatus choose_fillings() {
+
+    char option = get_menu_option();
+
+    switch (option) {
+    case 'F':
+        display_fish_filling();
+        break;
+    case 'S':
+        display_salsa_filling();
+        break;
+    case 'P':
+        display_pico_filling();
+        break;
+    case 'L':
+        display_lettuce_filling();
+        break;
+    case 'A':
+        display_avocado_filling();
+        break;
+    case 'Q':
+        return OPTION_QUIT;
+    default:
+        display_error();
+        return OPTION_INVALID;
+    }
+
+    return OPTION_VALID;
 }
 
 //------------------------------------------------------------------------------
@@ -99,7 +115,6 @@ char get_menu_option() {
 //------------------------------------------------------------------------------
 void display_fish_filling() {
 
-    number_of_fillings++;
     cout << "Adding freshly caught mahi-mahi\n";
 }
 
@@ -108,7 +123,6 @@ void display_fish_filling() {
 //------------------------------------------------------------------------------
 void display_salsa_filling() {
 
-    number_of_fillings++;
     cout << "Adding HOT homemade salsa\n";
 }
 
@@ -117,7 +131,6 @@ void display_salsa_filling() {
 //------------------------------------------------------------------------------
 void display_pico_filling() {
 
-    number_of_fillings++;
     cout << "Adding diced tomato, onion, and chopped cilantro\n";
 }
 
@@ -126,7 +139,6 @@ void display_pico_filling() {
 //------------------------------------------------------------------------------
 void display_lettuce_filling() {
 
-    number_of_fillings++;
     cout << "Adding crisp, shredded iceberg lettuce\n";
 }
 
@@ -135,7 +147,6 @@ void display_lettuce_filling() {
 //------------------------------------------------------------------------------
 void display_avocado_filling() {
 
-    number_of_fillings++;
     cout << "Adding creamy avocado slices\n";
 }
 
@@ -144,7 +155,6 @@ void display_avocado_filling() {
 //------------------------------------------------------------------------------
 void display_error() {
 
-    number_of_fillings++;
     cerr << "Sorry, that filling is not available.\n";
 }
 
