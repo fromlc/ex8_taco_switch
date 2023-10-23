@@ -27,8 +27,8 @@ enum UserOptionStatus {
 // local function prototypes
 //------------------------------------------------------------------------------
 void startup();
-UserOptionStatus choose_fillings();
 char get_menu_option();
+UserOptionStatus choose_fillings();
 void display_fish_filling();
 void display_salsa_filling();
 void display_pico_filling();
@@ -66,6 +66,17 @@ void startup() {
 }
 
 //------------------------------------------------------------------------------
+// display taco menu options
+//------------------------------------------------------------------------------
+char get_menu_option() {
+
+    char topping;
+    cout << '\n' << MENU_STR;
+    cin >> topping;
+    return toupper(topping);
+}
+
+//------------------------------------------------------------------------------
 // - processes selected menu option
 // - returns type of user response as enum: valid, invalid, or quit
 //------------------------------------------------------------------------------
@@ -97,17 +108,6 @@ UserOptionStatus choose_fillings() {
     }
 
     return OPTION_VALID;
-}
-
-//------------------------------------------------------------------------------
-// display taco menu options
-//------------------------------------------------------------------------------
-char get_menu_option() {
-
-    char topping;
-    cout << '\n' << MENU_STR;
-    cin >> topping;
-    return toupper(topping);
 }
 
 //------------------------------------------------------------------------------
